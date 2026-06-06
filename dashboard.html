@@ -1,16 +1,233 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+
+  <title>Dashboard - Academia de Jiu-Jitsu</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Dashboard</title>
 </head>
 
-<body>
-  <h1>Hello, world!</h1>
+<body class="bg-slate-900 min-h-screen text-white">
+
+  <!-- Header -->
+  <header class="bg-slate-800 border-b border-slate-700">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+
+      <!-- Logo -->
+      <div>
+        <h1 class="text-2xl font-bold text-white">
+          Academia
+        </h1>
+
+        <p class="text-sm text-slate-400">
+          Área do Aluno
+        </p>
+      </div>
+
+      <!-- Usuário -->
+      <div class="flex items-center gap-3">
+
+        <!-- Avatar -->
+        <img id="avatarUsuario" src="https://ui-avatars.com/api/?name=Aluno" alt="Avatar" class="w-11 h-11 rounded-full object-cover border-2 border-blue-500">
+
+        <!-- Informações -->
+        <div class="hidden sm:block">
+
+          <p id="nomeUsuario" class="text-white font-medium">
+            João Silva
+          </p>
+
+          <p id="emailUsuario" class="text-xs text-slate-400">
+            joao@email.com
+          </p>
+
+        </div>
+
+        <!-- Botões -->
+        <div class="flex gap-2">
+
+          <button id="btnEditar" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition">
+
+            Editar Dados
+
+          </button>
+
+          <button id="btnLogout" class="bg-slate-700 hover:bg-red-600 px-4 py-2 rounded-lg text-sm font-medium transition">
+
+            Sair
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <main class="max-w-7xl mx-auto p-6">
+
+    <!-- Saudação -->
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold">
+        Bem-vindo de volta 🥋
+      </h2>
+
+      <p class="text-slate-400 mt-2">
+        Acompanhe suas informações e evolução na academia.
+      </p>
+    </div>
+
+    <!-- Cards Resumo -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+
+      <div class="bg-slate-800 p-6 rounded-2xl shadow-lg">
+        <p class="text-slate-400 text-sm">
+          Status da Matrícula
+        </p>
+
+        <h3 class="text-green-400 text-2xl font-bold mt-2">
+          Ativa
+        </h3>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-2xl shadow-lg">
+        <p class="text-slate-400 text-sm">
+          Mensalidade
+        </p>
+
+        <h3 class="text-green-400 text-2xl font-bold mt-2">
+          Em Dia
+        </h3>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-2xl shadow-lg">
+        <p class="text-slate-400 text-sm">
+          Faixa Atual
+        </p>
+
+        <h3 class="text-blue-400 text-2xl font-bold mt-2">
+          Azul
+        </h3>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-2xl shadow-lg">
+        <p class="text-slate-400 text-sm">
+          Frequência
+        </p>
+
+        <h3 class="text-yellow-400 text-2xl font-bold mt-2">
+          87%
+        </h3>
+      </div>
+
+    </div>
+
+    <!-- Grid Principal -->
+    <div class="grid lg:grid-cols-3 gap-6">
+
+
+      <!-- Próxima Graduação -->
+      <div class="bg-slate-800 rounded-2xl p-6">
+
+        <h3 class="text-xl font-semibold mb-4">
+          Próxima Graduação
+        </h3>
+
+        <div class="space-y-4">
+
+          <div>
+            <p class="text-slate-400 text-sm">
+              Faixa Atual
+            </p>
+
+            <p class="text-blue-400 font-bold">
+              Azul
+            </p>
+          </div>
+
+          <div>
+            <p class="text-slate-400 text-sm">
+              Próxima Faixa
+            </p>
+
+            <p class="text-purple-500 font-semibold">
+              Roxa
+            </p>
+          </div>
+
+          <div>
+            <p class="text-slate-400 text-sm">
+              Data Prevista
+            </p>
+
+            <p>
+              Dezembro/2026
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Financeiro -->
+    <div class="bg-slate-800 rounded-2xl p-6 mt-6">
+
+      <h3 class="text-xl font-semibold mb-6">
+        Situação Financeira
+      </h3>
+
+      <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+          <thead>
+            <tr class="border-b border-slate-700">
+              <th class="text-left py-3">Vencimento</th>
+              <th class="text-left py-3">Valor</th>
+              <th class="text-left py-3">Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr class="border-b border-slate-700">
+              <td class="py-4">05/06/2026</td>
+              <td>R$ 150,00</td>
+              <td>
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">
+                  Pago
+                </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="py-4">05/07/2026</td>
+              <td>R$ 150,00</td>
+              <td>
+                <span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm">
+                  Pendente
+                </span>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </main>
+
 </body>
 
 </html>
