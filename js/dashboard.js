@@ -9,6 +9,41 @@ async function verificarSessao() {
   }
 }
 
+//Toast
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+
+  const colors = {
+    success: 'bg-green-500',
+    error: 'bg-red-500',
+    info: 'bg-blue-500',
+    warning: 'bg-yellow-500',
+  };
+
+  const toast = document.createElement('div');
+
+  toast.className = `
+    ${colors[type] || colors.info}
+    text-white px-4 py-3 rounded-lg shadow-lg
+    min-w-[220px] max-w-[280px]
+    transform transition-all duration-300
+    translate-x-0 opacity-100
+  `;
+
+  toast.innerText = message;
+
+  container.appendChild(toast);
+
+  // anima saída
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-x-10');
+
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
+}
 async function carregarPerfil() {
   const {
     data: { user },
@@ -39,6 +74,29 @@ function renderizarPerfil(perfil) {
   const avatar = document.getElementById('avatarUsuario');
 
   if (nomeUsuario) {
+    const modal = document.getElementById('modalPerfil');
+    const btnEditar = document.getElementById('btnEditar');
+    const btnFechar = document.getElementById('fecharModal');
+
+    // abrir modal
+    btnEditar?.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    // fechar modal (X)
+    btnFechar?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+
+    // fechar clicando fora
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
     nomeUsuario.textContent = perfil.nome;
   }
   if (emailUsuario) {
@@ -93,13 +151,15 @@ async function salvarPerfil() {
 
   if (error) {
     console.error('Erro ao atualizar perfil:', error);
-    alert('Erro ao atualizar perfil.');
+    // alert('Erro ao atualizar perfil.');
+    showToast('Erro ao atualizar perfil.', 'error');
     return;
   }
 
   document.getElementById('nomeUsuario').textContent = nome;
 
-  alert('Perfil atualizado com sucesso!');
+  //alert('Perfil atualizado com sucesso!');
+  showToast('Perfil atualizado com sucesso!', 'success');
 }
 
 async function uploadAvatar(file) {
@@ -117,7 +177,9 @@ async function uploadAvatar(file) {
 
   if (uploadError) {
     console.error(uploadError);
-    alert('Erro ao enviar imagem.');
+    //alert('Erro ao enviar imagem.');
+    showToast('Erro ao enviar imagem.', 'error');
+
     return;
   }
 
