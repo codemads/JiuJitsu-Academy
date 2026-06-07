@@ -1,7 +1,7 @@
 async function verificarSessao() {
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await supabaseClient.auth.getSession();
 
   if (!session) {
     window.location.href = 'index.html';
@@ -12,9 +12,9 @@ async function verificarSessao() {
 async function carregarPerfil() {
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabaseClient.auth.getUser();
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('profiles')
     .select('*')
     .eq('id', user.id)
@@ -30,6 +30,7 @@ async function carregarPerfil() {
 
 function renderizarPerfil(perfil) {
   const nomeUsuario = document.getElementById('nomeUsuario');
+  const emailUsuario = document.getElementById('emailUsuario');
 
   const nome = document.getElementById('nome');
 
@@ -39,6 +40,9 @@ function renderizarPerfil(perfil) {
 
   if (nomeUsuario) {
     nomeUsuario.textContent = perfil.nome;
+  }
+  if (emailUsuario) {
+    emailUsuario.textContent = perfil.email;
   }
 
   if (nome) {
@@ -52,6 +56,22 @@ function renderizarPerfil(perfil) {
   if (avatar && perfil.avatar_url) {
     avatar.src = perfil.avatar_url;
   }
+  document.getElementById('avatarUsuario')?.addEventListener('click', () => {
+    document.getElementById('avatarInput')?.click();
+  });
+  document
+    .getElementById('avatarInput')
+    ?.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+
+      if (!file) return;
+
+      // preview instantâneo
+      document.getElementById('avatarUsuario').src = URL.createObjectURL(file);
+
+      // upload pro supabase
+      await uploadAvatar(file);
+    });
 }
 
 async function salvarPerfil() {
@@ -61,9 +81,9 @@ async function salvarPerfil() {
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabaseClient.auth.getUser();
 
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from('profiles')
     .update({
       nome,
@@ -85,11 +105,11 @@ async function salvarPerfil() {
 async function uploadAvatar(file) {
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabaseClient.auth.getUser();
 
   const nomeArquivo = `${user.id}-${Date.now()}`;
 
-  const { error: uploadError } = await supabase.storage
+  const { error: uploadError } = await supabaseClient.storage
     .from('avatars')
     .upload(nomeArquivo, file, {
       upsert: true,
@@ -101,11 +121,13 @@ async function uploadAvatar(file) {
     return;
   }
 
-  const { data } = supabase.storage.from('avatars').getPublicUrl(nomeArquivo);
+  const { data } = supabaseClient.storage
+    .from('avatars')
+    .getPublicUrl(nomeArquivo);
 
   const avatarUrl = data.publicUrl;
 
-  const { error: updateError } = await supabase
+  const { error: updateError } = await supabaseClient
     .from('profiles')
     .update({
       avatar_url: avatarUrl,
@@ -121,9 +143,9 @@ async function uploadAvatar(file) {
 }
 
 async function logout() {
-  await supabase.auth.signOut();
+  await supabaseClient.auth.signOut();
 
-  window.location.href = 'index.html';
+  window.location.href = '../index.html';
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

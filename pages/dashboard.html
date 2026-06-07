@@ -32,7 +32,8 @@
       <div class="flex items-center gap-3">
 
         <!-- Avatar -->
-        <img id="avatarUsuario" src="https://ui-avatars.com/api/?name=Aluno" alt="Avatar" class="w-11 h-11 rounded-full object-cover border-2 border-blue-500">
+        <img id="avatarUsuario" src="https://ui-avatars.com/api/?name=Aluno" alt="Avatar" class="w-11 h-11 rounded-full object-cover border-2 border-blue-500 cursor-pointer">
+        <input type="file" id="avatarInput" accept="image/*" class="hidden">
 
         <!-- Informações -->
         <div class="hidden sm:block">
@@ -75,7 +76,7 @@
     <!-- Saudação -->
     <div class="mb-8">
       <h2 class="text-3xl font-bold">
-        Bem-vindo de volta 🥋
+        Bem-vindo de volta <span id="nomeSaudacao"></span> 🥋
       </h2>
 
       <p class="text-slate-400 mt-2">
@@ -227,7 +228,38 @@
     </div>
 
   </main>
+  <!-- Modal Editar Perfil -->
+  <div id="modalPerfil" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
 
+    <div class="bg-slate-800 w-full max-w-md rounded-2xl p-6 relative">
+
+      <!-- fechar -->
+      <button id="fecharModal" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl">
+        ✕
+      </button>
+
+      <h2 class="text-xl font-bold mb-4">
+        Editar Perfil
+      </h2>
+
+      <form id="formPerfil" class="space-y-3">
+
+        <input id="nome" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Nome" />
+
+        <input id="telefone" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Telefone" />
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
+          Salvar alterações
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="/js/supabase.js"></script>
+<script src="/js/dashboard.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,7 @@
-import { supabase } from './supabase.js';
-
-export async function verificarLogin() {
+async function verificarLogin() {
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await supabaseClient.auth.getSession();
 
   if (!session) {
     window.location.href = '../index.html';
