@@ -30,6 +30,7 @@ document
       }, 1500);
 
     } catch (error) {
-      showToast(error.message, 'error');
+      showToast(error.message, 'error')
+      console.log(error,'erro');
     }
   });

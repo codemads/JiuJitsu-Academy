@@ -1,64 +1,108 @@
-import {supabaseClient} from '../config/supabase.js';
+import { supabaseClient } from '../config/supabase.js';
+import { showToast } from '../components/toast.js';
 
 const form = document.getElementById('loginForm');
 
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
+const emailInput =
+  document.getElementById('email');
 
-  const email = document.getElementById('email').value;
-  const senha = document.getElementById('senha').value;
+const senhaInput =
+  document.getElementById('senha');
 
-try {
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password: senha,
-    });
+const btnLogin =
+  document.getElementById('btnLogin');
 
-  if (error) {
-    showToast('Email ou senha inválidos.', 'error');
-    return;
+const btnText =
+  document.getElementById('btnText');
+
+const btnSpinner =
+  document.getElementById('btnSpinner');
+
+function iniciarLoading() {
+  btnLogin.disabled = true;
+
+  btnLogin.classList.add(
+    'opacity-80',
+    'cursor-not-allowed'
+  );
+
+  btnText.textContent =
+    'Entrando...';
+
+  btnSpinner.classList.remove(
+    'hidden'
+  );
+}
+
+function finalizarLoading() {
+  btnLogin.disabled = false;
+
+  btnLogin.classList.remove(
+    'opacity-80',
+    'cursor-not-allowed'
+  );
+
+  btnText.textContent =
+    'Entrar';
+
+  btnSpinner.classList.add(
+    'hidden'
+  );
+}
+
+form.addEventListener(
+  'submit',
+  async (e) => {
+    e.preventDefault();
+
+    const email =
+      emailInput.value.trim();
+
+    const senha =
+      senhaInput.value;
+
+    if (!email || !senha) {
+      showToast(
+        'Preencha todos os campos.',
+        'error'
+      );
+      return;
+    }
+
+    try {
+      iniciarLoading();
+
+      const { error } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password: senha,
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      showToast(
+        'Login realizado com sucesso!',
+        'success'
+      );
+
+      setTimeout(() => {
+        window.location.href =
+          'dashboard.html';
+      }, 500);
+
+    } catch (error) {
+
+      showToast(
+        error.message,
+        'error'
+      );
+
+    } finally {
+
+      finalizarLoading();
+
+    }
   }
-
-  window.location.href = 'dashboard.html';
-
-} catch (err) {
-  console.error(err);
-  showToast('Erro ao realizar login.', 'error');
-}
-});
-
-
-function showToast(message, type = 'info') {
-  const container = document.getElementById('toast-container');
-
-  const colors = {
-    success: 'bg-green-500',
-    error: 'bg-red-500',
-    info: 'bg-blue-500',
-    warning: 'bg-yellow-500',
-  };
-
-  const toast = document.createElement('div');
-
-  toast.className = `
-    ${colors[type] || colors.info}
-    text-white px-4 py-3 rounded-lg shadow-lg
-    min-w-[220px] max-w-[280px]
-    transform transition-all duration-300
-    translate-x-0 opacity-100
-  `;
-
-  toast.innerText = message;
-
-  container.appendChild(toast);
-
-  // anima saída
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-x-10');
-
-    setTimeout(() => {
-      toast.remove();
-    }, 300);
-  }, 3000);
-}
+);
