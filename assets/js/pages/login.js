@@ -1,3 +1,5 @@
+import {supabaseClient} from '../config/supabase.js';
+
 const form = document.getElementById('loginForm');
 
 form.addEventListener('submit', async (event) => {
@@ -6,23 +8,27 @@ form.addEventListener('submit', async (event) => {
   const email = document.getElementById('email').value;
   const senha = document.getElementById('senha').value;
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password: senha,
-  });
-
-  console.log('Login realizado');
-  console.log(window.location.href);
+try {
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password: senha,
+    });
 
   if (error) {
-    console.error(error);
-    //alert(error.message);
-    showToast('Erro ao efetuar login', 'error');
+    showToast('Email ou senha inválidos.', 'error');
     return;
   }
 
-  window.location.href = '/pages/dashboard.html';
+  window.location.href = 'dashboard.html';
+
+} catch (err) {
+  console.error(err);
+  showToast('Erro ao realizar login.', 'error');
+}
 });
+
+
 function showToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
 
