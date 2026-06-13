@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Painel do Professor</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script type="module" src="./assets/js/pages/dashboardProfessor.js" defer></script>
+</head>
+
+<body class="bg-slate-950 text-white min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
+
+    <h1 class="text-2xl font-bold">
+      Painel do Professor 🥋
+    </h1>
+
+    <button id="btnLogout" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg">
+      Sair
+    </button>
+
+  </header>
+
+  <main class="p-6">
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+      <div class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+
+        <p class="text-slate-400">
+          Total de Alunos
+        </p>
+
+        <h2 id="totalAlunos" class="text-3xl font-bold mt-2">
+          0
+        </h2>
+
+      </div>
+
+      <div class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+
+        <p class="text-slate-400">
+          Matrículas Ativas
+        </p>
+
+        <h2 id="matriculasAtivas" class="text-3xl font-bold text-green-400 mt-2">
+          0
+        </h2>
+
+      </div>
+
+      <div class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+
+        <p class="text-slate-400">
+          Mensalidades Pendentes
+        </p>
+
+        <h2 id="mensalidadesPendentes" class="text-3xl font-bold text-yellow-400 mt-2">
+          0
+        </h2>
+
+      </div>
+
+    </div>
+
+    <!-- Ações -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+
+      <button id="btnNovoAluno" class="bg-blue-600 hover:bg-blue-700 p-4 rounded-xl">
+        Novo Aluno
+      </button>
+
+      <button id="btnPresenca" class="bg-green-600 hover:bg-green-700 p-4 rounded-xl">
+        Registrar Presença
+      </button>
+
+      <button id="btnMensalidade" class="bg-yellow-600 hover:bg-yellow-700 p-4 rounded-xl">
+        Registrar Mensalidade
+      </button>
+
+    </div>
+
+    <!-- Lista de Alunos -->
+    <section class="bg-slate-900 rounded-2xl p-6">
+
+      <h2 class="text-xl font-bold mb-4">
+        Alunos
+      </h2>
+
+      <div class="overflow-x-auto">
+
+        <table class="w-full text-left">
+
+          <thead>
+            <tr class="border-b border-slate-700">
+
+              <th class="py-3">
+                Nome
+              </th>
+
+              <th>
+                Faixa
+              </th>
+
+              <th>
+                Matrícula
+              </th>
+
+              <th>
+                Ações
+              </th>
+
+            </tr>
+          </thead>
+
+          <tbody id="listaAlunos">
+
+            <!-- Renderizado via JS -->
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script type="module" src="./assets/js/pages/dashboardProfessor.js"></script>
+
+</body>
+
+</html>

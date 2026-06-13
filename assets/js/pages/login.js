@@ -82,21 +82,35 @@ form.addEventListener(
         throw error;
       }
 
+      const {
+  data: { user },
+} = await supabaseClient.auth.getUser();
+
+const { data: perfil } =
+  await supabaseClient
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single();
+
       showToast(
         'Login realizado com sucesso!',
         'success'
       );
 
       setTimeout(() => {
-        window.location.href =
-          'dashboard.html';
+        if (perfil.role === 'professor') {
+  window.location.href = 'dashboard-professor.html';
+} else {
+  window.location.href = 'dashboard.html';
+}
       }, 500);
 
     } catch (error) {
 
       showToast(
-        error.message,
-        'error'
+       'Email ou senha invalido!',
+       'error'
       );
 
     } finally {

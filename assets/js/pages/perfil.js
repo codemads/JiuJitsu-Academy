@@ -13,6 +13,9 @@ import { inicializarAvatar } from '../components/avatar.js';
 
 
 function renderizarPerfil(perfil) {
+  const primeiroNome =
+    perfil.nome?.split(' ')[0] || '';
+
   document.getElementById('nomeUsuario').textContent =
     perfil.nome;
 
@@ -22,13 +25,25 @@ function renderizarPerfil(perfil) {
   document.getElementById('nome').value =
     perfil.nome || '';
 
+  document.getElementById('nomeSaudacao').textContent =
+    primeiroNome;
+
   document.getElementById('telefone').value =
     perfil.telefone || '';
+
+  
 
   if (perfil.avatar_url) {
     document.getElementById('avatarUsuario').src =
       perfil.avatar_url;
   }
+
+   // CARDS
+  document.getElementById('statusMatricula').textContent =
+    perfil.status_matricula || '-';
+
+  document.getElementById('faixaAtual').textContent =
+    perfil.faixa || '-';
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

@@ -31,6 +31,5 @@ document
 
     } catch (error) {
       showToast(error.message, 'error')
-      console.log(error,'erro');
     }
   });
