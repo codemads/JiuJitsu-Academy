@@ -244,7 +244,34 @@
 
       </div>
     </div>
+    <!-- Modal Registrar presença -->
+    <div id="modalRegistrarPresenca" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
 
+      <div class="bg-slate-800 w-full max-w-md rounded-2xl p-6 relative">
+
+        <!-- fechar -->
+        <button id="fecharModalPresenca" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl">
+          ✕
+        </button>
+
+        <h2 class="text-xl font-bold mb-4">
+          Registrar presença
+        </h2>
+
+        <form id="formPerfil" class="space-y-3">
+
+          <input id="nome" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Nome" />
+
+          <input id="telefone" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Telefone" />
+
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
+            Salvar alterações
+          </button>
+
+        </form>
+
+      </div>
+    </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="./assets/js/pages/dashboardProfessor.js"></script>
