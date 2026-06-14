@@ -1,10 +1,7 @@
 import { verificarSessao, logout } from '../services/auth.js';
-import {
-  carregarPerfil,
-  salvarPerfil,
-} from '../services/porfileService.js';
+import { carregarPerfil, salvarPerfil,} from '../services/porfileService.js';
 import { showToast } from '../components/toast.js';
-import { inicializarModalPerfil } from '../components/modal.js';
+import { inicializarModal } from '../components/modal.js';
 import { inicializarAvatar } from '../components/avatar.js';
 
 
@@ -37,7 +34,7 @@ function renderizarPerfil(perfil) {
    // CARDS
   document.getElementById('statusMatricula').textContent =
     perfil.status_matricula || '-';
-4
+
   document.getElementById('faixaAtual').textContent =
     perfil.faixa || '-';
 }
@@ -49,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   renderizarPerfil(perfil);
 
-  inicializarModalPerfil();
+  inicializarModal();
 
   inicializarAvatar();
 

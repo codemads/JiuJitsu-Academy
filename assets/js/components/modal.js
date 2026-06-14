@@ -1,3 +1,4 @@
+//Função global para modal
 export function inicializarModal(
   modalId,
   btnAbrirId,
