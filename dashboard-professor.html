@@ -9,60 +9,76 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <script type="module" src="./assets/js/pages/dashboardProfessor.js" defer></script>
 </head>
 
 <body class="bg-slate-950 text-white min-h-screen">
 
+  <!-- Background Effects -->
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 blur-3xl rounded-full"></div>
+  </div>
+
   <!-- Header -->
-  <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
 
-    <h1 class="text-2xl font-bold">
-      Painel do Professor 🥋
-    </h1>
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
-    <button id="btnLogout" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg">
-      Sair
-    </button>
+      <div>
+        <h1 class="text-3xl font-bold">
+          Painel do Professor
+        </h1>
+
+        <p class="text-slate-400 text-sm mt-1">
+          Gerencie alunos, presenças e mensalidades
+        </p>
+      </div>
+
+      <button id="btnLogout" class="flex items-center gap-2 bg-red-500/15 border border-red-500/20 text-red-400 px-4 py-2 rounded-xl hover:bg-red-500/25 transition-all duration-300">
+
+        Sair
+      </button>
+
+    </div>
 
   </header>
 
-  <main class="p-6">
+  <main class="max-w-7xl mx-auto p-6">
 
-    <!-- Cards -->
+    <!-- Estatísticas -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-      <div class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+      <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 hover:border-blue-500/40 transition-all duration-300">
 
-        <p class="text-slate-400">
+        <p class="text-slate-400 text-sm uppercase tracking-wider">
           Total de Alunos
         </p>
 
-        <h2 id="totalAlunos" class="text-3xl font-bold mt-2">
+        <h2 id="totalAlunos" class="text-5xl font-bold mt-3">
           0
         </h2>
 
       </div>
 
-      <div class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+      <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 hover:border-green-500/40 transition-all duration-300">
 
-        <p class="text-slate-400">
+        <p class="text-slate-400 text-sm uppercase tracking-wider">
           Matrículas Ativas
         </p>
 
-        <h2 id="matriculasAtivas" class="text-3xl font-bold text-green-400 mt-2">
-          0
+        <h2 id="matriculasAtivas" class="text-5xl font-bold text-green-400 mt-3">
+          -
         </h2>
 
       </div>
 
-      <div class="bg-slate-800 rounded-2xl p-6 shadow-lg">
+      <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 hover:border-yellow-500/40 transition-all duration-300">
 
-        <p class="text-slate-400">
+        <p class="text-slate-400 text-sm uppercase tracking-wider">
           Mensalidades Pendentes
         </p>
 
-        <h2 id="mensalidadesPendentes" class="text-3xl font-bold text-yellow-400 mt-2">
+        <h2 id="mensalidadesPendentes" class="text-5xl font-bold text-yellow-400 mt-3">
           0
         </h2>
 
@@ -71,56 +87,104 @@
     </div>
 
     <!-- Ações -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <section class="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 mb-8">
 
-      <button id="btnNovoAluno" class="bg-blue-600 hover:bg-blue-700 p-4 rounded-xl">
-        Novo Aluno
-      </button>
-
-      <button id="btnPresenca" class="bg-green-600 hover:bg-green-700 p-4 rounded-xl">
-        Registrar Presença
-      </button>
-
-      <button id="btnMensalidade" class="bg-yellow-600 hover:bg-yellow-700 p-4 rounded-xl">
-        Registrar Mensalidade
-      </button>
-
-    </div>
-
-    <!-- Lista de Alunos -->
-    <section class="bg-slate-900 rounded-2xl p-6">
-
-      <h2 class="text-xl font-bold mb-4">
-        Alunos
+      <h2 class="text-lg font-semibold mb-5">
+        Ações rápidas
       </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <button id="btnNovoAluno" class="group bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-5 hover:scale-[1.02] transition-all duration-300">
+
+          <div class="text-left">
+            <p class="font-semibold text-lg">
+              Novo Aluno
+            </p>
+
+            <span class="text-blue-100 text-sm">
+              Cadastrar novo atleta
+            </span>
+          </div>
+
+        </button>
+
+        <button id="btnPresenca" class="group bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-5 hover:scale-[1.02] transition-all duration-300">
+
+          <div class="text-left">
+            <p class="font-semibold text-lg">
+              Registrar Presença
+            </p>
+
+            <span class="text-green-100 text-sm">
+              Controle de frequência
+            </span>
+          </div>
+
+        </button>
+
+        <button id="btnMensalidade" class="group bg-gradient-to-r from-yellow-500 to-amber-600 rounded-2xl p-5 hover:scale-[1.02] transition-all duration-300">
+
+          <div class="text-left">
+            <p class="font-semibold text-lg">
+              Registrar Mensalidade
+            </p>
+
+            <span class="text-yellow-100 text-sm">
+              Controle financeiro
+            </span>
+          </div>
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- Tabela -->
+    <section class="bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden">
+
+      <div class="p-6 border-b border-slate-800">
+
+        <h2 class="text-xl font-bold">
+          Alunos
+        </h2>
+
+        <p class="text-slate-400 text-sm mt-1">
+          Lista completa de alunos cadastrados
+        </p>
+
+      </div>
 
       <div class="overflow-x-auto">
 
-        <table class="w-full text-left">
+        <table class="w-full">
 
-          <thead>
-            <tr class="border-b border-slate-700">
+          <thead class="bg-slate-800/50">
 
-              <th class="py-3">
+            <tr class="text-slate-400 text-sm">
+
+              <th class="text-left px-6 py-4">
                 Nome
               </th>
 
-              <th>
+              <th class="text-left px-6 py-4">
                 Faixa
               </th>
 
-              <th>
+              <th class="text-left px-6 py-4">
                 Matrícula
               </th>
 
-              <th>
+              <th class="text-left px-6 py-4">
                 Ações
               </th>
 
             </tr>
+
           </thead>
 
-          <tbody id="listaAlunos">
+          <tbody id="listaAlunos" class="divide-y divide-slate-800">
 
             <!-- Renderizado via JS -->
 
@@ -131,6 +195,47 @@
       </div>
 
     </section>
+    <!-- Modal Novo aluno -->
+    <div id="modalAluno" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+      <div class="bg-slate-800 w-full max-w-md rounded-2xl p-6 relative">
+
+        <!-- fechar -->
+        <button id="fecharModal" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl">
+          ✕
+        </button>
+
+        <h2 class="text-xl font-bold mb-4">
+          Novo aluno
+        </h2>
+
+        <form id="formNovoAluno" class="space-y-3">
+
+          <input id="nome" type="text" name="nome" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Nome" />
+
+          <input id="celular" type="tel" name="celular" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Telefone" />
+
+          <input id="email" type="email" name="email" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Email" />
+          <div>
+            <select name="faixa" id="faixa" class="w-full p-3 rounded bg-slate-900 text-white">
+              <option value="">Selecione sua faixa</option>
+              <option value="branca">Branca</option>
+              <option value="azul">Azul</option>
+              <option value="roxa">Roxa</option>
+              <option value="marrom">Marrom</option>
+              <option value="preta">Preta</option>
+            </select>
+          </div>
+          <input type="date" id="dataNasc" name="dataNasc" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Data de nascimento" />
+
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
+            Cadastrar
+          </button>
+
+        </form>
+
+      </div>
+    </div>
 
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

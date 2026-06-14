@@ -1,22 +1,29 @@
-export function inicializarModalPerfil() {
-  const modal = document.getElementById('modalPerfil');
-  const btnEditar = document.getElementById('btnEditar');
-  const btnFechar = document.getElementById('fecharModal');
+export function inicializarModal(
+  modalId,
+  btnAbrirId,
+  btnFecharId
+) {
 
-  btnEditar?.addEventListener('click', () => {
+  const modal =
+    document.getElementById(modalId);
+
+  const btnAbrir =
+    document.getElementById(btnAbrirId);
+
+  const btnFechar =
+    document.getElementById(btnFecharId);
+
+  btnAbrir?.addEventListener('click', () => {
     modal.classList.remove('hidden');
-    modal.classList.add('flex');
   });
 
   btnFechar?.addEventListener('click', () => {
     modal.classList.add('hidden');
-    modal.classList.remove('flex');
   });
 
   modal?.addEventListener('click', (e) => {
     if (e.target === modal) {
       modal.classList.add('hidden');
-      modal.classList.remove('flex');
     }
   });
 }
