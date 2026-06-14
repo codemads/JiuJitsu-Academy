@@ -1,9 +1,5 @@
 //Função global para modal
-export function inicializarModal(
-  modalId,
-  btnAbrirId,
-  btnFecharId
-) {
+export function inicializarModal(modalId,btnAbrirId,btnFecharId) {
 
   const modal =
     document.getElementById(modalId);

@@ -3,7 +3,7 @@ import { carregarPerfil, salvarPerfil,} from '../services/porfileService.js';
 import { showToast } from '../components/toast.js';
 import { inicializarModal } from '../components/modal.js';
 import { inicializarAvatar } from '../components/avatar.js';
-
+ 
 
 function renderizarPerfil(perfil) {
   const primeiroNome =
@@ -31,6 +31,8 @@ function renderizarPerfil(perfil) {
       perfil.avatar_url;
   }
 
+
+
    // CARDS
   document.getElementById('statusMatricula').textContent =
     perfil.status_matricula || '-';
@@ -41,26 +43,17 @@ function renderizarPerfil(perfil) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await verificarSessao();
-
   const perfil = await carregarPerfil();
 
   renderizarPerfil(perfil);
-
-  inicializarModal();
-
+  inicializarModal('modalPerfil','btnEditar','fecharModal');
   inicializarAvatar();
 
-  document
-    .getElementById('btnLogout')
-    ?.addEventListener('click', logout);
 
-  document
-    .getElementById('formPerfil')
-    ?.addEventListener('submit', async (e) => {
+  document.getElementById('btnLogout')?.addEventListener('click', logout);
+  document.getElementById('formPerfil')?.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      try {
-        await salvarPerfil(
+      try {await salvarPerfil(
           document.getElementById('nome').value,
           document.getElementById('telefone').value
         );

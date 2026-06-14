@@ -67,60 +67,33 @@ async function carregarAlunos() {
 }
 
 //botao anterior
- document
-  .getElementById('btnAnterior')
-  .addEventListener('click', async () => {
-
+ document.getElementById('btnAnterior').addEventListener('click', async () => {
     if (paginaAtual > 1) {
       paginaAtual--;
       await carregarAlunos();
     }
-
   });
-//botao proximo
-document
-  .getElementById('btnProxima')
-  .addEventListener('click', async () => {
 
-    if (paginaAtual < totalPaginas) {
+
+//botao proximo
+document.getElementById('btnProxima').addEventListener('click', async () => {
+  if (paginaAtual < totalPaginas) {
       paginaAtual++;
       await carregarAlunos();
     }
-
   });
-  //botao do modal novo aluno
-document.getElementById('btnNovoAluno')?.addEventListener('click', () => {
- document.getElementById('modalAluno').classList.remove('hidden');
-});
 
-//botao modal registrar presença
-document.getElementById('btnPresenca')?.addEventListener('click',()=> {
- document.getElementById('modalRegistrarPresenca').classList.remove('hidden');
-});
-
-function fecharModal() {
-  document.getElementById('modalAluno').classList.add('hidden');
-  document.getElementById('modalRegistrarPresenca').classList.add('hidden');
-}
-
-document.getElementById('fecharModalPresenca')?.addEventListener('click', fecharModal);
+    
+inicializarModal('modalAluno','btnNovoAluno','fecharModal',);
+inicializarModal('modalRegistrarPresenca','btnPresenca','fecharModalPresenca')
+document.getElementById('btnLogout')?.addEventListener('click',logout);
 
 
 //DOM Load
 document.addEventListener('DOMContentLoaded',async () => {
   await verificarSessao();
-    const alunos =
-      await listarAlunos();
+    const alunos = await listarAlunos();
         renderizarAlunos(alunos);
 
-    document.getElementById('btnLogout')?.addEventListener('click',logout);
-      
-      
-inicializarModal(
-  'modalAluno',
-  'btnNovoAluno',
-  'btnPresenca',
-  'fecharModal',
- );
 }
 );
