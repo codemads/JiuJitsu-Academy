@@ -1,10 +1,10 @@
 
 import { verificarSessao, logout }from '../services/auth.js';
-import { listarAlunos } from '../services/professorService.js';
+import { listarAlunos, buscarAlunoPorId } from '../services/professorService.js';
 import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
 
 
-
+//renderizaçao da lisyta de alunos na base de dados
 function renderizarAlunos(alunos) {
   
   document.getElementById('totalAlunos').textContent =
@@ -36,7 +36,7 @@ ${aluno.status_matricula || '-'}</td>
           <td class="px-6 py-4 font-medium">
 
           <button data-id="${aluno.id}"
-            class="btnEditarAluno text-blue-400">
+            class="btnFichaAluno text-blue-400">
             Ver ficha
           </button>
         </td>
@@ -68,54 +68,36 @@ async function carregarAlunos() {
 
 //função ficha aluno
 
-document
-.getElementById('listaAlunos')
-.addEventListener('click', async (e)=>{
-
+document.getElementById('listaAlunos').addEventListener('click', async (e)=>{
 
 if(!e.target.classList.contains('btnFichaAluno'))
 return;
 
 
 const id = e.target.dataset.id;
-
-
 const aluno = await buscarAlunoPorId(id);
 
-
-
-document.getElementById('fichaFoto')
-.src =
-aluno.avatar_url || '../assets/images/avatar.png';
+document.getElementById('fichaFoto').src =aluno.avatar_url ? aluno.avatar_url :'../assets/images/avatar-default.png';
 
 
 
-document.getElementById('fichaNome')
-.textContent =
-aluno.nome;
+document.getElementById('fichaNome').textContent = aluno.nome;
 
 
 
-document.getElementById('fichaEmail')
-.textContent =
-aluno.email;
+document.getElementById('fichaEmail').textContent = aluno.email;
 
 
 
-document.getElementById('fichaTelefone')
-.textContent =
-aluno.telefone || '-';
+document.getElementById('fichaTelefone').textContent = aluno.telefone || '-';
 
 
 
-document.getElementById('fichaNascimento')
-.textContent =
-aluno.data_nascimento || '-';
+document.getElementById('fichaNascimento').textContent = aluno.data_nascimento || '-';
 
 
 
-document.getElementById('fichaFaixa')
-.textContent =
+document.getElementById('fichaFaixa').textContent =
 aluno.faixa || '-';
 
 
@@ -157,7 +139,7 @@ document.getElementById('btnProxima').addEventListener('click', async () => {
 inicializarModal('modalAluno','btnNovoAluno','fecharModal',);
 inicializarModal('modalRegistrarPresenca','btnPresenca','fecharModalPresenca')
 inicializarModal('modalCriaAula','btnCriaAula','fecharModalCriaAula')
-inicializarModal('modalFichaAluno','btnFichaAluno','fecharModalFichaAluno')
+inicializarModal('modalFichaAluno',null,'fecharModalFichaAluno')
 abrirModalDinamico('listaAlunos','btnEditarAluno','modalEditarAluno')
 
 
