@@ -135,6 +135,20 @@
           </div>
 
         </button>
+        <!--Criar aula-->
+        <button id="btnCriaAula" class="group bg-gradient-to-r from-red-800 to-amber-600 rounded-2xl p-5 hover:scale-[1.02] transition-all duration-300">
+
+          <div class="text-left">
+            <p class="font-semibold text-lg">
+              Criar aula
+            </p>
+
+            <span class="text-yellow-100 text-sm">
+              Criar aula e turma
+            </span>
+          </div>
+
+        </button>
 
       </div>
 
@@ -264,7 +278,7 @@
 
           <input id="telefone" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Telefone" />
 
-          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
+          <button type="submit" id="btn-presenca" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
             Salvar alterações
           </button>
 
@@ -272,6 +286,140 @@
 
       </div>
     </div>
+    <!--Modal ficha  aluno-->
+    <div id="modalFichaAluno" class="hidden fixed inset-0 bg-black/50 items-center justify-center">
+
+
+      <div class="bg-slate-900 p-6 rounded-xl w-96">
+
+
+        <button id="fecharModalFichaAluno" class="float-right">
+          ✕
+        </button>
+
+
+        <img id="fichaFoto" class="w-24 h-24 rounded-full mx-auto">
+
+
+        <h2 id="fichaNome" class="text-xl font-bold text-center mt-3">
+        </h2>
+
+
+        <div class="mt-5 space-y-2">
+
+
+          <p>
+            Email:
+            <span id="fichaEmail"></span>
+          </p>
+
+
+          <p>
+            Telefone:
+            <span id="fichaTelefone"></span>
+          </p>
+
+
+          <p>
+            Nascimento:
+            <span id="fichaNascimento"></span>
+          </p>
+
+
+          <p>
+            Faixa:
+            <span id="fichaFaixa"></span>
+          </p>
+
+
+          <p>
+            Status:
+            <span id="fichaStatus"></span>
+          </p>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+    <!-- Modal Cria aula -->
+    <div id="modalCriaAula" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+      <div class="bg-slate-800 w-full max-w-md rounded-2xl p-6 relative">
+
+        <!-- fechar -->
+        <button id="fecharModalCriaAula" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl">
+          ✕
+        </button>
+
+        <h2 class="text-2xl font-bold mb-1">
+          Criar Aula
+        </h2>
+        <p class="text-slate-400 text-sm mb-6">
+          Configure a turma para iniciar o registro de presença.
+        </p>
+
+        <form id="criar-aula" class="space-y-5">
+
+          <div>
+            <label for="turmaId" class="block text-sm font-medium text-slate-300 mb-2">Turma</label>
+            <select id="turmaId" class="w-full p-3 rounded-xl
+             bg-slate-900
+             border border-slate-700
+             text-white
+             focus:outline-none
+             focus:ring-2
+             focus:ring-blue-500
+             focus:border-blue-500
+             transition" required>
+              <option value="">Selecione uma turma</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="tipoAula" class="block text-sm font-medium text-slate-300 mb-2">Categoria</label>
+            <select id="tipoAula" class="w-full p-3 rounded-xl
+             bg-slate-900
+             border border-slate-700
+             text-white
+             focus:outline-none
+             focus:ring-2
+             focus:ring-blue-500
+             focus:border-blue-500
+             transition">
+              <option value="infantil">Infantil</option>
+              <option value="adolescentes">Adolescentes</option>
+              <option value="femenino">Femenino</option>
+              <option value="adulto">Adulto</option>
+              <option value="experimental">Experimental</option>
+            </select>
+          </div>
+
+          <button type="submit" id="btnSalvarCriaAula" class="w-full
+           bg-gradient-to-r
+           from-blue-600
+           to-blue-700
+           hover:from-blue-500
+           hover:to-blue-600
+           p-3
+           rounded-xl
+           font-semibold
+           shadow-lg
+           transition-all
+           duration-300
+           hover:scale-[1.02]">
+
+            Criar Aula
+
+          </button>
+
+
+        </form>
+
+      </div>
+
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="./assets/js/pages/dashboardProfessor.js"></script>

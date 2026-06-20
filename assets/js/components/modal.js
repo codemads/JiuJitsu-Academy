@@ -4,8 +4,8 @@ export function inicializarModal(modalId,btnAbrirId,btnFecharId) {
   const modal =
     document.getElementById(modalId);
 
-  const btnAbrir =
-    document.getElementById(btnAbrirId);
+  const btnAbrir = btnAbrirId
+    ? document.getElementById(btnAbrirId) :null;
 
   const btnFechar =
     document.getElementById(btnFecharId);
@@ -23,4 +23,26 @@ export function inicializarModal(modalId,btnAbrirId,btnFecharId) {
       modal.classList.add('hidden');
     }
   });
+}
+
+//Modal para edição dinamica
+export function abrirModalDinamico(
+  containerId,
+  btnClass,
+  modalId,
+  callback
+) {
+  document.getElementById(containerId)
+    ?.addEventListener('click', (e) => {
+
+      if (!e.target.classList.contains(btnClass))
+        return;
+
+      const id = e.target.dataset.id;
+
+      document.getElementById(modalId)
+        ?.classList.remove('hidden');
+
+      callback?.(id);
+    });
 }

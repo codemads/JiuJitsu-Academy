@@ -1,7 +1,7 @@
 
 import { verificarSessao, logout }from '../services/auth.js';
 import { listarAlunos } from '../services/professorService.js';
-import { inicializarModal } from '../components/modal.js';
+import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
 
 
 
@@ -35,9 +35,9 @@ ${aluno.faixa || '-'}</td>
 ${aluno.status_matricula || '-'}</td>
           <td class="px-6 py-4 font-medium">
 
-          <button
-            class="text-blue-400">
-            Editar
+          <button data-id="${aluno.id}"
+            class="btnEditarAluno text-blue-400">
+            Ver ficha
           </button>
         </td>
       </tr>
@@ -66,6 +66,76 @@ async function carregarAlunos() {
     `Página ${paginaAtual} de ${totalPaginas}`;
 }
 
+//função ficha aluno
+
+document
+.getElementById('listaAlunos')
+.addEventListener('click', async (e)=>{
+
+
+if(!e.target.classList.contains('btnFichaAluno'))
+return;
+
+
+const id = e.target.dataset.id;
+
+
+const aluno = await buscarAlunoPorId(id);
+
+
+
+document.getElementById('fichaFoto')
+.src =
+aluno.avatar_url || '../assets/images/avatar.png';
+
+
+
+document.getElementById('fichaNome')
+.textContent =
+aluno.nome;
+
+
+
+document.getElementById('fichaEmail')
+.textContent =
+aluno.email;
+
+
+
+document.getElementById('fichaTelefone')
+.textContent =
+aluno.telefone || '-';
+
+
+
+document.getElementById('fichaNascimento')
+.textContent =
+aluno.data_nascimento || '-';
+
+
+
+document.getElementById('fichaFaixa')
+.textContent =
+aluno.faixa || '-';
+
+
+
+document.getElementById('fichaStatus')
+.textContent =
+aluno.status_matricula || '-';
+
+
+
+const modal =
+document.getElementById('modalFichaAluno');
+
+
+modal.classList.remove('hidden');
+modal.classList.add('flex');
+
+
+});
+
 //botao anterior
  document.getElementById('btnAnterior').addEventListener('click', async () => {
     if (paginaAtual > 1) {
@@ -86,6 +156,13 @@ document.getElementById('btnProxima').addEventListener('click', async () => {
     
 inicializarModal('modalAluno','btnNovoAluno','fecharModal',);
 inicializarModal('modalRegistrarPresenca','btnPresenca','fecharModalPresenca')
+inicializarModal('modalCriaAula','btnCriaAula','fecharModalCriaAula')
+inicializarModal('modalFichaAluno','btnFichaAluno','fecharModalFichaAluno')
+abrirModalDinamico('listaAlunos','btnEditarAluno','modalEditarAluno')
+
+
+
+
 document.getElementById('btnLogout')?.addEventListener('click',logout);
 
 
