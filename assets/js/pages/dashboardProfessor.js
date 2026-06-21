@@ -46,10 +46,7 @@ ${aluno.status_matricula || '-'}</td>
 
   
 }
-const { alunos, total } =
-  await listarAlunos();
 
-renderizarAlunos(alunos);
 
 //função para renderizar até 10 cadastros
 let paginaAtual = 1;
@@ -108,14 +105,31 @@ aluno.status_matricula || '-';
 
 
 
-const modal =
-document.getElementById('modalFichaAluno');
-
-
+const modal = document.getElementById('modalFichaAluno');
 modal.classList.remove('hidden');
 modal.classList.add('flex');
 
+});
+//redirecinamento botao editar ficha do aluno
+let alunoSelecionado = null;
 
+document.getElementById('listaAlunos').addEventListener('click', async (e) => {
+
+  if (!e.target.classList.contains('btnFichaAluno'))
+    return;
+
+  const id = e.target.dataset.id;
+
+  alunoSelecionado = await buscarAlunoPorId(id);
+
+  document.getElementById('btnEditarFichaAluno')
+?.addEventListener('click', () => {
+
+  if (!alunoSelecionado) return;
+
+  location.href =
+    `edit-aluno.html?id=${alunoSelecionado.id}`;
+});
 });
 
 //botao anterior
@@ -149,10 +163,7 @@ document.getElementById('btnLogout')?.addEventListener('click',logout);
 
 
 //DOM Load
-document.addEventListener('DOMContentLoaded',async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   await verificarSessao();
-    const alunos = await listarAlunos();
-        renderizarAlunos(alunos);
-
-}
-);
+  await carregarAlunos();
+});
