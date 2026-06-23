@@ -32,14 +32,14 @@ O objetivo do projeto é fornecer uma plataforma simples para professores e alun
 ### Autenticação
 
 - [x] Tela de Login
-- [ ] Cadastro de Alunos
+- [x] Cadastro de Alunos
 - [ ] Recuperação de Senha
-- [ ] Logout
+- [x] Logout
 
 ### Professor
 
 - [ ] Aprovar ou rejeitar alunos
-- [ ] Gerenciar alunos
+- [x] Gerenciar alunos
 - [ ] Criar aulas
 - [ ] Marcar presença
 - [ ] Visualizar histórico de aulas
@@ -49,7 +49,7 @@ O objetivo do projeto é fornecer uma plataforma simples para professores e alun
 - [ ] Visualizar aulas concluídas
 - [ ] Consultar frequência
 - [ ] Acompanhar evolução
-- [ ] Visualizar graduações/faixas
+- [x] Visualizar graduações/faixas
 
 ### Futuro
 
@@ -88,15 +88,18 @@ academy-management-system/
 ### Versão 1.0
 
 - [x] Tela de Login
-- [ ] Cadastro de Alunos
-- [ ] Integração com Supabase
+- [x] Cadastro de Alunos
+- [x] Integração com Supabase
 - [ ] Aprovação de Cadastro
+- [x] Dashboard Professor
+- [x] Dashboard Aluno
 
 ### Versão 2.0
 
-- [ ] Dashboard Professor
-- [ ] Dashboard Aluno
+- [ ] Registro de aulas
+- [ ] Cria turmas
 - [ ] Controle de Presença
+- [ ] Redesign
 
 ### Versão 3.0
 
@@ -111,10 +114,10 @@ academy-management-system/
 ### Cadastro de Aluno
 
 1. O aluno realiza seu cadastro.
-2. O cadastro fica pendente.
-3. O professor recebe a solicitação.
+2. O aluno acessa o dashboard com dados zerados.
+3. O professor recebe a lista de alunos.
 4. O professor aprova ou rejeita o aluno.
-5. Após aprovação, o aluno pode acessar o sistema.
+5. Após aprovação, o aluno está na turma do professor.
 
 ### Presença
 
@@ -126,7 +129,7 @@ academy-management-system/
 
 ## 📝 Licença
 
-Projeto desenvolvido para fins de estudo e uso em academias de artes marciais.
+Projeto desenvolvido para fins de estudo, experiencia pratica e uso em academias de artes marciais.
 
 ---
 
