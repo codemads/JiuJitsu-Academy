@@ -1,25 +1,21 @@
 import { verificarSessao} from '../services/auth.js';
-import {buscarAlunoPorId} from '../services/professorService.js';
+import {atualizarAluno, buscarAlunoPorId} from '../services/professorService.js';
+import { showToast } from '../components/toast.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
   await verificarSessao();
 
-  const alunoId =
-    new URLSearchParams(location.search)
-      .get('id');
+  const alunoId = new URLSearchParams(location.search).get('id');
 
 
-  if (!alunoId) {
-    location.replace('dashboard-professor.html');
+  if (!alunoId) { location.replace('dashboard-professor.html');
     return;
   }
 
-  const aluno =
-    await buscarAlunoPorId(alunoId);
+  const aluno = await buscarAlunoPorId(alunoId);
 
-  if (!aluno) {
-    location.replace('dashboard-professor.html');
+  if (!aluno) { location.replace('dashboard-professor.html');
     return;
   }
 
@@ -53,3 +49,37 @@ document.getElementById('dataMatricula').value =
     : '';
 
 }
+
+const form = document.getElementById('registerForm');
+const alunoId = new URLSearchParams(location.search).get('id');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  const dados = Object.fromEntries(formData.entries());
+  const alunoAtualizado = {
+    ...dados,
+    telefone: dados.celular,
+    data_nascimento: dados.dataNasc,
+    status_matricula: dados.status,
+    nome: dados.nome
+  };
+
+  delete alunoAtualizado.celular;
+  delete alunoAtualizado.dataNasc;
+  delete alunoAtualizado.status;
+  delete alunoAtualizado.nome;
+
+  try {
+
+    await atualizarAluno(alunoId, alunoAtualizado);
+
+  }  catch (error) {
+showToast('Não foi possivel ataulazar este cadastro, revise os dados','error')
+
+ } 
+}
+
+);

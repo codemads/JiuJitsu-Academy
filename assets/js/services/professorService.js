@@ -1,4 +1,6 @@
 import { supabaseClient } from '../config/supabase.js';
+import { showToast } from '../components/toast.js';
+
 export async function listarAlunos(pagina = 1) {
   const limite = 10;
   const inicio = (pagina - 1) * limite;
@@ -42,13 +44,23 @@ export async function buscarAlunoPorId(id) {
 
   return data;
 }
-//atualizar editaçao do aluno
+
+//atualizar cadastro do aluno 
 export async function atualizarAluno(id, dados) {
 
-  const { error } = await supabaseClient
+  const { data, error } = await supabaseClient
     .from('profiles')
     .update(dados)
-    .eq('id', id);
+    .eq('id', id)
+    .select()
+    
 
-  if (error) throw error;
+  if (error){ showToast(
+    'Não foi possivel ataulizar o cadastro, revise os dados e tente novamente',
+    'error'); 
+    
+    throw error
+  }
+  showToast('Cadastro atualizado com sucesso!','sucess');
+
 }
