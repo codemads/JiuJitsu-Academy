@@ -1,15 +1,11 @@
-import { uploadAvatar } from '../services/porfileService.js';
+import { uploadAvatar } from '../services/profileService.js';
 
 export function inicializarAvatar() {
-  document
-    .getElementById('avatarUsuario')
-    ?.addEventListener('click', () => {
+  document.getElementById('avatarUsuario')?.addEventListener('click', () => {
       document.getElementById('avatarInput')?.click();
     });
 
-  document
-    .getElementById('avatarInput')
-    ?.addEventListener('change', async (e) => {
+  document.getElementById('avatarInput')?.addEventListener('change', async (e) => {
       const file = e.target.files[0];
 
       if (!file) return;

@@ -10,6 +10,7 @@ export async function carregarPerfil() {
     .select('*')
     .eq('id', user.id)
     .single();
+    
 
   if (error) throw error;
 

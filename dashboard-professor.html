@@ -21,29 +21,73 @@
   <!-- Header -->
   <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
 
-    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 
+      <!-- Logo -->
       <div>
-        <h1 class="text-3xl font-bold">
-          Painel do Professor
+        <h1 class="text-2xl font-bold text-white">
+          Academia OSS
         </h1>
 
-        <p class="text-slate-400 text-sm mt-1">
-          Gerencie alunos, presenças e mensalidades
+        <p class="text-sm text-slate-400">
+          Área do Professor
         </p>
       </div>
 
-      <button id="btnLogout" class="flex items-center gap-2 bg-red-500/15 border border-red-500/20 text-red-400 px-4 py-2 rounded-xl hover:bg-red-500/25 transition-all duration-300">
+      <!-- Usuário -->
+      <div class="flex items-center gap-3">
 
-        Sair
-      </button>
+        <!-- Avatar -->
+        <img id="avatarUsuario" src="https://ui-avatars.com/api/?name=Aluno" alt="Avatar" class="w-11 h-11 rounded-full object-cover border-2 border-blue-500 cursor-pointer">
+        <input type="file" id="avatarInput" accept="image/*" class="hidden">
+
+        <!-- Informações -->
+        <div class="hidden sm:block">
+
+          <p id="nomeUsuario" class="text-white font-medium">
+            -
+          </p>
+
+          <p id="emailUsuario" class="text-xs text-slate-400">
+            -
+          </p>
+
+        </div>
+
+        <!-- Botões -->
+        <div class="flex gap-2">
+
+          <button id="btnEditar" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition">
+
+            Editar Dados
+
+          </button>
+
+          <button id="btnLogout" class="bg-slate-700 hover:bg-red-600 px-4 py-2 rounded-lg text-sm font-medium transition">
+
+            Sair
+
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
   </header>
 
   <main class="max-w-7xl mx-auto p-6">
+    <!-- Saudação -->
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold">
+        Bem-vindo, <span id="nomeSaudacao"></span>!🥋
+      </h2>
 
+      <p class="text-slate-400 mt-2">
+        Acompanhe as informações e evolução da academia.
+      </p>
+    </div>
     <!-- Estatísticas -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
@@ -494,8 +538,39 @@
       </div>
 
   </main>
+  <!-- Modal Editar Perfil -->
+  <div id="modalPerfil" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+    <div class="bg-slate-800 w-full max-w-md rounded-2xl p-6 relative">
+
+      <!-- fechar -->
+      <button id="fecharModal" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl">
+        ✕
+      </button>
+
+      <h2 class="text-xl font-bold mb-4">
+        Editar Perfil
+      </h2>
+
+      <form id="formPerfil" class="space-y-3">
+
+        <input id="nome" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Nome" />
+
+        <input id="telefone" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Telefone" />
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
+          Salvar alterações
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-3"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="./assets/js/pages/dashboardProfessor.js"></script>
+
 
 </body>
 

@@ -1,7 +1,10 @@
 
 import { verificarSessao, logout }from '../services/auth.js';
 import { listarAlunos, buscarAlunoPorId } from '../services/professorService.js';
+import { carregarPerfil, salvarPerfil} from '../services/profileService.js';
+import { renderizarPerfil } from './perfil.js';
 import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
+import { inicializarAvatar } from '../components/avatar.js';
 
 
 //renderizaçao da lisyta de alunos na base de dados
@@ -161,9 +164,15 @@ abrirModalDinamico('listaAlunos','btnEditarAluno','modalEditarAluno')
 
 document.getElementById('btnLogout')?.addEventListener('click',logout);
 
+  inicializarModal('modalPerfil','btnEditar','fecharModal');
+  
 
 //DOM Load
 document.addEventListener('DOMContentLoaded', async () => {
+   
   await verificarSessao();
+  await inicializarAvatar()
+  await carregarPerfil()
   await carregarAlunos();
+
 });
