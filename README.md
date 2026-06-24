@@ -33,7 +33,7 @@ O objetivo do projeto é fornecer uma plataforma simples para professores e alun
 
 - [x] Tela de Login
 - [x] Cadastro de Alunos
-- [ ] Recuperação de Senha
+- [x] Recuperação de Senha
 - [x] Logout
 
 ### Professor
@@ -65,20 +65,55 @@ O objetivo do projeto é fornecer uma plataforma simples para professores e alun
 ```plaintext
 academy-management-system/
 │
-├── index.html
+│─── RAIZ
+│   dashboard-professor.html
+│   dashboard.html
+│   edit-aluno.html
+│   index.html
+│   README.md
+│   recuperar-senha.html
+│   register.html
+│   reset-password.html
 │
-├── css/
-│   └── style.css
+├
 │
-├── js/
-│   └── login.js
-│
-├── assets/
-│   ├── favicon.ico
-│   └── images/
-│       └── bg-login.jpg
-│
-└── README.md
+├───assets
+│   ├───images
+│   │   │   avatar-default.png
+│   │   │   bg.jpg
+│   │   │   logo.png
+│   │   │
+│   │   └───icons
+│   │           favicon.ico
+│   │
+│   └───js
+│       ├───components
+│       │       avatar.js
+│       │       modal.js
+│       │       toast.js
+│       │
+│       ├───config
+│       │       supabase.js
+│       │
+│       ├───pages
+│       │       dashboardProfessor.js
+│       │       edit-aluno.js
+│       │       login.js
+│       │       perfil.js
+│       │       recuperaSenha.js
+│       │       register.js
+│       │       resetPassword.js
+│       │
+│       ├───services
+│       │       auth.js
+│       │       passwordService.js
+│       │       presencaService.js
+│       │       professorService.js
+│       │       profileService.js
+│       │
+│       └───utils
+└───css
+        style.css
 ```
 
 ---

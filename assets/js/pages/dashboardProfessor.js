@@ -157,14 +157,13 @@ inicializarModal('modalAluno','btnNovoAluno','fecharModal',);
 inicializarModal('modalRegistrarPresenca','btnPresenca','fecharModalPresenca')
 inicializarModal('modalCriaAula','btnCriaAula','fecharModalCriaAula')
 inicializarModal('modalFichaAluno',null,'fecharModalFichaAluno')
+inicializarModal('modalPerfil','btnEditar','fecharModalPerfilProfessor');
 abrirModalDinamico('listaAlunos','btnEditarAluno','modalEditarAluno')
-
 
 
 
 document.getElementById('btnLogout')?.addEventListener('click',logout);
 
-  inicializarModal('modalPerfil','btnEditar','fecharModal');
   
 
 //DOM Load
