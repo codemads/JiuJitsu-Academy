@@ -1,5 +1,5 @@
 import { supabaseClient } from '../config/supabase.js';
-import { showToast } from '../components/toast.js';
+
 
 export async function listarAlunos(pagina = 1) {
   const limite = 10;
@@ -55,12 +55,69 @@ export async function atualizarAluno(id, dados) {
     .select()
     
 
-  if (error){ showToast(
-    'Não foi possivel ataulizar o cadastro, revise os dados e tente novamente',
-    'error'); 
-    
+  if (error){ console.error(error)
     throw error
   }
-  showToast('Cadastro atualizado com sucesso!','sucess');
+ 
+}
+
+export async function listarTurmas() {
+  const { data, error } = await supabaseClient
+    .from('turmas')
+    .select('id, nome')
+    .order('nome');
+
+  if (error) {
+   console.error(error)
+
+    throw error;
+  }
+
+  return data;
+}
+
+export async function criaAula(dados) {
+
+  const {data: usuario, error} = await supabaseClient.auth.getUser();
+
+if(error){
+  console.error(error)
+  throw error
+  
+}
+if(!usuario.user){
+console.error(error)
+
+  return;
+
+}
+
+const {data, error:dadosUser} = await supabaseClient
+  .from('aulas')
+  .insert({
+
+ professor_id: usuario.user.id,
+ titulo: dados.titulo,
+ descricao: dados.descricao,
+ turma_id: dados.turma,
+ horario_inicio: dados.horario_inicio,
+ horario_fim: dados.horario_fim,
+ status: dados.status,
+
+})
+      
+      .select();
+
+  if(dadosUser){
+
+    console.error(dadosUser);
+   
+
+    throw dadosUser;
+
+  }
+
+
+  return data;
 
 }

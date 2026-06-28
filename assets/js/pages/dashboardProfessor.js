@@ -1,13 +1,14 @@
 
 import { verificarSessao, logout }from '../services/auth.js';
-import { listarAlunos, buscarAlunoPorId } from '../services/professorService.js';
+import { listarAlunos, buscarAlunoPorId, listarTurmas } from '../services/professorService.js';
 import { carregarPerfil, salvarPerfil} from '../services/profileService.js';
 import { renderizarPerfil } from './perfil.js';
 import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
 import { inicializarAvatar } from '../components/avatar.js';
+import { initCriaAula } from './criar-aula.js';
 
 
-//renderizaçao da lisyta de alunos na base de dados
+//renderizaçao da lista de alunos na base de dados
 function renderizarAlunos(alunos) {
   
   document.getElementById('totalAlunos').textContent =
@@ -49,6 +50,22 @@ ${aluno.status_matricula || '-'}</td>
 
   
 }
+//prenche select cria aula com turmas
+async function carregarTurmas() {
+  const turmas = await listarTurmas();
+  const select = document.getElementById('tipoAula');
+
+  select.innerHTML = '';
+
+  turmas.forEach(turma => {
+    select.innerHTML += `
+      <option value="${turma.id}">
+        ${turma.nome}
+      </option>
+    `;
+  });
+
+}
 
 
 //função para renderizar até 10 cadastros
@@ -79,40 +96,27 @@ const aluno = await buscarAlunoPorId(id);
 
 document.getElementById('fichaFoto').src =aluno.avatar_url ? aluno.avatar_url :'../assets/images/avatar-default.png';
 
-
-
 document.getElementById('fichaNome').textContent = aluno.nome;
-
-
 
 document.getElementById('fichaEmail').textContent = aluno.email;
 
-
-
 document.getElementById('fichaTelefone').textContent = aluno.telefone || '-';
 
-
-
 document.getElementById('fichaNascimento').textContent = aluno.data_nascimento || '-';
-
-
 
 document.getElementById('fichaFaixa').textContent =
 aluno.faixa || '-';
 
-
-
 document.getElementById('fichaStatus')
 .textContent =
 aluno.status_matricula || '-';
-
-
 
 const modal = document.getElementById('modalFichaAluno');
 modal.classList.remove('hidden');
 modal.classList.add('flex');
 
 });
+
 //redirecinamento botao editar ficha do aluno
 let alunoSelecionado = null;
 
@@ -134,6 +138,9 @@ document.getElementById('listaAlunos').addEventListener('click', async (e) => {
     `edit-aluno.html?id=${alunoSelecionado.id}`;
 });
 });
+
+
+
 
 //botao anterior
  document.getElementById('btnAnterior').addEventListener('click', async () => {
@@ -173,5 +180,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await inicializarAvatar()
   await carregarPerfil()
   await carregarAlunos();
+  await carregarTurmas()
+  initCriaAula()
 
 });

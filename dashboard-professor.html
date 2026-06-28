@@ -462,7 +462,7 @@
     </div>
 
     <!-- Modal Cria aula -->
-    <div id="modalCriaAula" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    <div id="modalCriaAula" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50 overflow-y-auto">
 
       <div class="bg-slate-800 w-full max-w-md rounded-2xl p-6 relative">
 
@@ -481,8 +481,18 @@
         <form id="criar-aula" class="space-y-5">
 
           <div>
-            <label for="turmaId" class="block text-sm font-medium text-slate-300 mb-2">Turma</label>
-            <select id="turmaId" class="w-full p-3 rounded-xl
+            <label for="tituloId" class="block text-sm font-medium text-slate-300 mb-2">Titulo</label>
+            <input id="tituloId" type="text" name="tituloId" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Ex: Adulto" />
+          </div>
+
+          <div>
+            <label for="descricaoId" class="block text-sm font-medium text-slate-300 mb-2">Descricao</label>
+            <input id="descricaoId" type="text" name="descricaoId" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Ex: Aula infantil de manhã" />
+          </div>
+
+          <div>
+            <label for="statusAula" class="block text-sm font-medium text-slate-300 mb-2">Status</label>
+            <select id="statusAula" class="w-full p-3 rounded-xl
              bg-slate-900
              border border-slate-700
              text-white
@@ -490,9 +500,21 @@
              focus:ring-2
              focus:ring-blue-500
              focus:border-blue-500
-             transition" required>
-              <option value="">Selecione uma turma</option>
+             transition">
+              <option value="ativa" selected>Ativa</option>
+              <option value="inativa">Inativa</option>
+              <option value="agendada">Agendada</option>
+
             </select>
+          </div>
+
+          <div>
+            <label for="horaInicioId" class="block text-sm font-medium text-slate-300 mb-2">Horario do inicio</label>
+            <input id="horaInicioId" type="time" name="horaInicioId" class="w-full p-3 rounded bg-slate-900 text-white" />
+          </div>
+          <div>
+            <label for="horaFimId" class="block text-sm font-medium text-slate-300 mb-2">Horario do fim</label>
+            <input id="horaFimId" type="time" name="horaFimId" class="w-full p-3 rounded bg-slate-900 text-white" />
           </div>
 
           <div>
@@ -506,11 +528,7 @@
              focus:ring-blue-500
              focus:border-blue-500
              transition">
-              <option value="infantil">Infantil</option>
-              <option value="adolescentes">Adolescentes</option>
-              <option value="femenino">Femenino</option>
-              <option value="adulto">Adulto</option>
-              <option value="experimental">Experimental</option>
+
             </select>
           </div>
 
@@ -526,11 +544,16 @@
            shadow-lg
            transition-all
            duration-300
-           hover:scale-[1.02]">
+           hover:scale-[1.02]"> <span data-text>Criar Aula</span>
+            <svg id="btnSpinner" class="hidden animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" data-spinner>
 
-            Criar Aula
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+              </circle>
 
-          </button>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z">
+              </path>
+
+            </svg></button>
 
 
         </form>
