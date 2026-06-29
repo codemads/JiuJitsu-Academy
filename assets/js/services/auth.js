@@ -1,17 +1,31 @@
 import { supabaseClient } from '../config/supabase.js';
 
-export async function verificarSessao() {
-  const {
-    data: { session },
-  } = await supabaseClient.auth.getSession();
+export async function verificarSessao(rolePermitido = null) {
 
-  if (!session) {
-    window.location.href = 'index.html';
-    return false;
-  }
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
 
-  return true;
+    
+
+    const { data: perfil } = await supabaseClient
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+ 
+
+    if (perfil.role !== rolePermitido) {
+      
+        return null;
+    }
+
+
+    return { session, perfil };
 }
+
+
 export async function cadastrarUsuario(dados) {
 
   if (dados.senha !== dados.confirmarSenha) {

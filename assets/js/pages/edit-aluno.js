@@ -4,7 +4,7 @@ import { showToast } from '../components/toast.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  await verificarSessao();
+ await verificarSessao('professor');
 
   const alunoId = new URLSearchParams(location.search).get('id');
 

@@ -2,7 +2,7 @@
 import { verificarSessao, logout }from '../services/auth.js';
 import { listarAlunos, buscarAlunoPorId, listarTurmas } from '../services/professorService.js';
 import { carregarPerfil, salvarPerfil} from '../services/profileService.js';
-import { renderizarPerfil } from './perfil.js';
+import { renderizarPerfil } from '../components/perfilView.js';
 import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
 import { inicializarAvatar } from '../components/avatar.js';
 import { initCriaAula } from './criar-aula.js';
@@ -117,7 +117,7 @@ modal.classList.add('flex');
 
 });
 
-//redirecinamento botao editar ficha do aluno
+//redirecionamento botao editar ficha do aluno
 let alunoSelecionado = null;
 
 document.getElementById('listaAlunos').addEventListener('click', async (e) => {
@@ -176,9 +176,17 @@ document.getElementById('btnLogout')?.addEventListener('click',logout);
 //DOM Load
 document.addEventListener('DOMContentLoaded', async () => {
    
-  await verificarSessao();
+const usuario = await verificarSessao('professor');
+
+if (!usuario) {
+    window.location.replace('/pages/erros/403.html');
+    return;
+}
+
+document.body.classList.remove('hidden');
   await inicializarAvatar()
-  await carregarPerfil()
+  const perfil = await carregarPerfil()
+  renderizarPerfil(perfil)
   await carregarAlunos();
   await carregarTurmas()
   initCriaAula()
