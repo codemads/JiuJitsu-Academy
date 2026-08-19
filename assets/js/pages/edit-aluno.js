@@ -77,7 +77,7 @@ form.addEventListener('submit', async (e) => {
     await atualizarAluno(alunoId, alunoAtualizado);
 
   }  catch (error) {
-showToast('Não foi possivel ataulazar este cadastro, revise os dados','error')
+showToast('Não foi possivel atualizar este cadastro, revise os dados','error')
 
  } 
 }

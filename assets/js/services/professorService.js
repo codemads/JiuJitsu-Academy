@@ -171,3 +171,26 @@ export async function registrarPresenca(alunoId, aulaId) {
 
   return data;
 }
+
+export async function cadastrarAluno(nome,email,telefone, faixa, data_nascimento) {
+
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .insert({
+      nome: nome,
+      email: email,
+      telefone: celular,
+      faixa: faixa,
+      data_nascimento: data_nascimento
+
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Erro ao cadastrar aluno:', error);
+    throw error;
+  }
+
+  return data;
+}

@@ -131,8 +131,8 @@ academy-management-system/
 
 ### Versão 2.0
 
-- [ ] Registro de aulas
-- [ ] Cria turmas
+- [x] Registro de aulas
+- [x] Cria turmas
 - [ ] Controle de Presença
 - [ ] Redesign
 

@@ -1,6 +1,6 @@
 
 import { verificarSessao, logout }from '../services/auth.js';
-import { listarAlunos, buscarAlunoPorId, listarTurmas, listarAulas, listarAlunosCadastrados } from '../services/professorService.js';
+import { listarAlunos, buscarAlunoPorId, listarTurmas, listarAulas, listarAlunosCadastrados, cadastrarAluno } from '../services/professorService.js';
 import { carregarPerfil, salvarPerfil} from '../services/profileService.js';
 import { renderizarPerfil } from '../components/perfilView.js';
 import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
@@ -71,7 +71,7 @@ async function carregarTurmas() {
 }
 
 
-//prenche select aulas cadastrados 
+//preenche select aulas cadastrados 
 async function carregarTurmasRegistro() {
   const aulas = await listarAulas();
   const select = document.getElementById('aulasCadastradas');
@@ -197,30 +197,43 @@ document.getElementById('btnProxima').addEventListener('click', async () => {
     }
   });
 
-//envio do registrar presença
-const btnRegistrar = document.getElementById('btn-registrarPresenca');
 
-btnRegistrar.addEventListener('click', async () => {
+  
+  //cadastrar aluno
+const btnCadastrarAluno = document.getElementById('cadastrarAluno');
 
-  const alunoId = document.getElementById('alunosCadastrados').value;
-  const aulaId = document.getElementById('aulasCadastradas').value;
+btnCadastrarAluno.addEventListener('click', async () => {
 
-  if (!alunoId || !aulaId) {
-    showToast('Selecione o aluno e a aula.', 'error');
+  const nome = document.getElementById('nome').value;
+    const telefone = document.getElementById('celular').value;
+
+      const faixa = document.getElementById('faixa').value;
+
+        const dataNasc = document.getElementById('dataNasc').value;
+
+          const email = document.getElementById('email').value;
+
+
+  if (!nome || !telefone || !faixa||!dataNasc || !email ) {
+    showToast('Insira todos os dados necessarios', 'error');
     return;
   }
 
   try {
 
-    btnRegistrar.disabled = true;
+    btnCadastrarAluno.disabled = true;
 
-    await registrarPresenca(alunoId, aulaId);
+    await cadastrarAluno(nome, email, telefone, faixa, dataNasc);
 
-    showToast('Presença registrada com sucesso!', 'success');
+    showToast('Aluno cadstrado com sucesso!', 'success');
 
     // limpa os campos
-    document.getElementById('alunosCadastrados').value = '';
-    document.getElementById('aulasCadastradas').value = '';
+    document.getElementById('nome').value = '';
+    document.getElementById('celular').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('faixa').value = '';
+    document.getElementById('dataNasc').value = '';
+
 
    
 
@@ -228,14 +241,14 @@ btnRegistrar.addEventListener('click', async () => {
 
     // Caso já exista registro para esse aluno nessa aula
     if (error.code === '23505') {
-      showToast('Este aluno já foi registrado nesta aula.', 'error');
+      showToast('Este aluno já está cadastrado', 'error');
       return;
     }
 
-    showToast('Não foi possível registrar a presença.', 'error');
+    showToast('Não foi possível cadastrar este aluno', 'error');
 
   } finally {
-    btnRegistrar.disabled = false;
+    btnCadastrarAluno.disabled = false;
   }
 });
 
