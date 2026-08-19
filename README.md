@@ -41,7 +41,7 @@ O objetivo do projeto é fornecer uma plataforma simples para professores e alun
 - [ ] Aprovar ou rejeitar alunos
 - [x] Gerenciar alunos
 - [x] Criar aulas
-- [ ] Marcar presença
+- [x] Marcar presença
 - [ ] Visualizar histórico de aulas
 
 ### Aluno

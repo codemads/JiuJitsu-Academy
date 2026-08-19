@@ -1,11 +1,14 @@
 
 import { verificarSessao, logout }from '../services/auth.js';
-import { listarAlunos, buscarAlunoPorId, listarTurmas } from '../services/professorService.js';
+import { listarAlunos, buscarAlunoPorId, listarTurmas, listarAulas, listarAlunosCadastrados } from '../services/professorService.js';
 import { carregarPerfil, salvarPerfil} from '../services/profileService.js';
 import { renderizarPerfil } from '../components/perfilView.js';
 import { abrirModalDinamico, inicializarModal } from '../components/modal.js';
+import { showToast } from '../components/toast.js';
 import { inicializarAvatar } from '../components/avatar.js';
 import { initCriaAula } from './criar-aula.js';
+import { registrarPresenca } from '../services/professorService.js';
+
 
 
 //renderizaçao da lista de alunos na base de dados
@@ -67,6 +70,41 @@ async function carregarTurmas() {
 
 }
 
+
+//prenche select aulas cadastrados 
+async function carregarTurmasRegistro() {
+  const aulas = await listarAulas();
+  const select = document.getElementById('aulasCadastradas');
+
+  select.innerHTML = '';
+
+  aulas.forEach(aula => {
+    select.innerHTML += `
+      <option value="${aula.id}">
+        ${aula.titulo}
+      </option>
+    `;
+  });
+
+}
+
+
+//prenche select alunos cadastrados 
+async function carregarAlunosCadastrados() {
+  const alunos = await listarAlunosCadastrados();
+  const select = document.getElementById('alunosCadastrados');
+
+  select.innerHTML = '';
+
+  alunos.forEach(aluno => {
+    select.innerHTML += `
+      <option value="${aluno.id}">
+        ${aluno.nome}
+      </option>
+    `;
+  });
+
+}
 
 //função para renderizar até 10 cadastros
 let paginaAtual = 1;
@@ -159,6 +197,48 @@ document.getElementById('btnProxima').addEventListener('click', async () => {
     }
   });
 
+//envio do registrar presença
+const btnRegistrar = document.getElementById('btn-registrarPresenca');
+
+btnRegistrar.addEventListener('click', async () => {
+
+  const alunoId = document.getElementById('alunosCadastrados').value;
+  const aulaId = document.getElementById('aulasCadastradas').value;
+
+  if (!alunoId || !aulaId) {
+    showToast('Selecione o aluno e a aula.', 'error');
+    return;
+  }
+
+  try {
+
+    btnRegistrar.disabled = true;
+
+    await registrarPresenca(alunoId, aulaId);
+
+    showToast('Presença registrada com sucesso!', 'success');
+
+    // limpa os campos
+    document.getElementById('alunosCadastrados').value = '';
+    document.getElementById('aulasCadastradas').value = '';
+
+   
+
+  } catch (error) {
+
+    // Caso já exista registro para esse aluno nessa aula
+    if (error.code === '23505') {
+      showToast('Este aluno já foi registrado nesta aula.', 'error');
+      return;
+    }
+
+    showToast('Não foi possível registrar a presença.', 'error');
+
+  } finally {
+    btnRegistrar.disabled = false;
+  }
+});
+
     
 inicializarModal('modalAluno','btnNovoAluno','fecharModal',);
 inicializarModal('modalRegistrarPresenca','btnPresenca','fecharModalPresenca')
@@ -189,6 +269,8 @@ document.body.classList.remove('hidden');
   renderizarPerfil(perfil)
   await carregarAlunos();
   await carregarTurmas()
+  await carregarTurmasRegistro()
+  await carregarAlunosCadastrados()
   initCriaAula()
 
 });

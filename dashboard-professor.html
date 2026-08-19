@@ -194,6 +194,8 @@
 
         </button>
 
+
+
       </div>
 
     </section>
@@ -318,12 +320,29 @@
 
         <form id="formPerfil" class="space-y-3">
 
-          <input id="nome" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Nome" />
+          <div>
+            <label class="block text-slate-300 mb-2">
+              Selecione o aluno
+            </label>
 
-          <input id="telefone" type="text" class="w-full p-3 rounded bg-slate-900 text-white" placeholder="Telefone" />
+            <select id="alunosCadastrados" name="alunosCadastrados" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+              <option value="">Selecione o aluno</option>
+            </select>
+          </div>
 
-          <button type="submit" id="btn-presenca" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
-            Salvar alterações
+
+          <div>
+            <label class="block text-slate-300 mb-2">
+              Selecione a aula
+            </label>
+
+            <select id="aulasCadastradas" name="aulasCadastradas" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+              <option value="">Selecione a aula</option>
+            </select>
+          </div>
+
+          <button type="submit" id="btn-registrarPresenca" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold">
+            Registrar
           </button>
 
         </form>
