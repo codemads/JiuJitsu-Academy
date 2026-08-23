@@ -168,6 +168,18 @@ Projeto desenvolvido para fins de estudo, experiencia pratica e uso em academias
 
 ---
 
+## 👤 Login para testes
+
+URL: https://codemads.github.io/JiuJitsu-Academy/
+
+Perfil aluno:
+---Email: testemax@max.com
+---Senha: @123456
+
+Perfil professor:
+---Email: demonstra@demo.com  
+---Senha: @123456
+
 ## 👨‍💻 Autor
 
 Desenvolvido por Madson Santos.
